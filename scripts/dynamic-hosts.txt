@@ -1,0 +1,13 @@
+# Hostnames resolved on every build (via getent) to keep IPs fresh in list.lst.
+# Format: one hostname per line, '#' comments allowed.
+#
+# These are Twingate control-plane / STUN endpoints — small set of LB IPs
+# that change rarely. Relay endpoints (e.g. 34.158.x.x) are NOT in DNS:
+# they are returned by the controller API after login, so they have to be
+# covered by /16 aggregates in list.manual.lst.
+
+tabby.twingate.com
+analytics.twingate.com
+relays-prm.twingate.com
+stun.europe-west4-a.twingate.com
+stun-alt.europe-west4-a.twingate.com

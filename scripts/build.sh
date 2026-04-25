@@ -116,8 +116,35 @@ awk '
     }
 ' list.manual.lst | LC_ALL=C sort -u > "$manual_norm"
 
+# ---------- 5b. Resolve dynamic hostnames to current IPs ----------
+# Hostnames in scripts/dynamic-hosts.txt are resolved on every build so the
+# IPs in list.lst stay fresh without manual edits. Used for Twingate
+# control-plane and STUN endpoints (LBs that may move within GCP).
+echo "==> Resolving dynamic hostnames..."
+dynamic_ips="$TMP_DIR/dynamic-ips.txt"
+: > "$dynamic_ips"
+if [[ -f scripts/dynamic-hosts.txt ]]; then
+    while IFS= read -r line; do
+        host="${line%%#*}"
+        host="$(echo "$host" | xargs)"
+        [[ -z "$host" ]] && continue
+        ips="$(getent ahostsv4 "$host" 2>/dev/null \
+            | awk '{print $1}' \
+            | grep -E '^([0-9]{1,3}\.){3}[0-9]{1,3}$' \
+            | LC_ALL=C sort -u || true)"
+        if [[ -n "$ips" ]]; then
+            n=$(printf '%s\n' "$ips" | wc -l)
+            printf '    [+] %-40s %d IPs: %s\n' "$host" "$n" "$(printf '%s' "$ips" | tr '\n' ' ')"
+            printf '%s\n' "$ips" >> "$dynamic_ips"
+        else
+            printf '    [-] %-40s failed to resolve\n' "$host" >&2
+        fi
+    done < scripts/dynamic-hosts.txt
+    LC_ALL=C sort -u "$dynamic_ips" -o "$dynamic_ips"
+fi
+
 merged="$TMP_DIR/merged.txt"
-LC_ALL=C sort -u "$manual_norm" "$normalized" > "$merged"
+LC_ALL=C sort -u "$manual_norm" "$normalized" "$dynamic_ips" > "$merged"
 
 # ---------- 6. Collapse subdomain redundancy ----------
 # If foo.com is in the set, drop *.foo.com (GL.iNet root match wildcards

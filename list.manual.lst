@@ -73,19 +73,19 @@ youtu.be
 youtube.com
 zoom.us
 
-# Twingate relay/STUN/controller GCP IPs — twingate.com domain entry doesn't
-# help because libsdwan resolves these via its own DoH and connects by IP.
-# /16 aggregates cover relay rotation across europe-west*, asia-east*, us-*.
+# Twingate relay GCP IPs — libsdwan resolves these via its own DoH and
+# connects by IP, so the twingate.com domain entry doesn't help.
+# Relay endpoints are returned by the controller API after login (not in DNS),
+# so /16 aggregates are the only way to cover their rotation across
+# europe-west*, asia-east*, us-*. Control-plane and STUN IPs are auto-
+# resolved at build time from scripts/dynamic-hosts.txt — no need to list
+# their /16s here.
 34.6.0.0/16
 34.13.0.0/16
 34.39.0.0/16
 34.65.0.0/16
 34.89.0.0/16
-34.90.0.0/16
-34.91.0.0/16
 34.107.0.0/16
-34.111.0.0/16
-34.117.0.0/16
 34.158.0.0/16
 34.159.0.0/16
 34.179.0.0/16
