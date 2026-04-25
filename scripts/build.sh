@@ -90,6 +90,7 @@ awk 1 "${extracted_files[@]}" \
         /@/ { next }                              # drop @cn / @ads / etc.
         /^keyword:/ { next }
         /^regexp:/ { next }
+        /xn--/ { next }                           # GL.iNet rejects punycode IDNs
         {
             sub(/^domain:/, "")
             sub(/^full:/, "")
