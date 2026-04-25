@@ -118,22 +118,23 @@ LC_ALL=C sort -u "$manual_norm" "$normalized" > "$merged"
 
 # ---------- 6. Collapse subdomain redundancy ----------
 # If foo.com is in the set, drop *.foo.com (GL.iNet root match wildcards
-# subdomains, so the longer entry is redundant).
+# subdomains, so the longer entry is redundant). Two-pass: lexicographic
+# sort puts children before parents (fonts.googleapis.com < googleapis.com),
+# so we must materialize the full set before filtering.
 echo "==> Collapsing redundant subdomains..."
 collapsed="$TMP_DIR/collapsed.txt"
 awk '
+    NR == FNR { all[$0] = 1; next }
     {
         n = split($0, parts, ".")
-        keep = 1
-        # Walk every proper suffix (skip i=1 which is the entry itself).
         for (i = 2; i <= n - 1; i++) {
             suffix = parts[i]
             for (j = i + 1; j <= n; j++) suffix = suffix "." parts[j]
-            if (suffix in seen) { keep = 0; break }
+            if (suffix in all) next
         }
-        if (keep) { seen[$0] = 1; print }
+        print
     }
-' "$merged" > "$collapsed"
+' "$merged" "$merged" > "$collapsed"
 
 echo "    before collapse: $(wc -l < "$merged")"
 echo "    after collapse:  $(wc -l < "$collapsed")"
