@@ -72,3 +72,20 @@ xvideos.com
 youtu.be
 youtube.com
 zoom.us
+
+# Twingate relay/STUN/controller GCP IPs — twingate.com domain entry doesn't
+# help because libsdwan resolves these via its own DoH and connects by IP.
+# /16 aggregates cover relay rotation across europe-west*, asia-east*, us-*.
+34.6.0.0/16
+34.13.0.0/16
+34.39.0.0/16
+34.65.0.0/16
+34.89.0.0/16
+34.90.0.0/16
+34.91.0.0/16
+34.107.0.0/16
+34.111.0.0/16
+34.117.0.0/16
+34.158.0.0/16
+34.159.0.0/16
+34.179.0.0/16

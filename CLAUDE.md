@@ -9,9 +9,11 @@ Repo purpose: publish a single plain-text domain list (`list.lst`) consumed by [
 - **Add categories to `scripts/categories.txt`**, one per line. `#` comments allowed. Unknown categories are silently skipped, so it's safe to list aspirational ones.
 - **Format constraints (GL.iNet)** — `list.lst` may contain only:
   - bare domains (`netflix.com` — wildcard for all subdomains), or
-  - exact FQDNs (`www.netflix.com` — exact match).
+  - exact FQDNs (`www.netflix.com` — exact match), or
+  - IPv4 addresses (`34.111.220.252`), or
+  - IPv4 CIDR ranges (`34.0.0.0/16`).
 
-  Forbidden in `list.lst`: protocols, paths, comments, blank lines, v2ray prefixes (`domain:`, `full:`, `keyword:`, `regexp:`), attribute suffixes (`@cn`, `@ads`).
+  Forbidden in `list.lst`: protocols, paths, comments, blank lines, v2ray prefixes (`domain:`, `full:`, `keyword:`, `regexp:`), attribute suffixes (`@cn`, `@ads`), IPv6 (not supported by GL.iNet subscription mode).
 
 ## Pipeline (scripts/build.sh)
 

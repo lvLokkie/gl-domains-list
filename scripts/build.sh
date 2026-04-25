@@ -97,6 +97,7 @@ awk 1 "${extracted_files[@]}" \
             sub(/[[:space:]].*$/, "")             # drop trailing tokens
             $0 = tolower($0)
             if ($0 ~ /^[a-z0-9._-]+\.[a-z0-9._-]+$/) print
+            else if ($0 ~ /^([0-9]{1,3}\.){3}[0-9]{1,3}(\/[0-9]{1,2})?$/) print
         }
     ' \
     | LC_ALL=C sort -u > "$normalized"
@@ -111,6 +112,7 @@ awk '
         sub(/[[:space:]].*$/, "")
         $0 = tolower($0)
         if ($0 ~ /^[a-z0-9._-]+\.[a-z0-9._-]+$/) print
+            else if ($0 ~ /^([0-9]{1,3}\.){3}[0-9]{1,3}(\/[0-9]{1,2})?$/) print
     }
 ' list.manual.lst | LC_ALL=C sort -u > "$manual_norm"
 
