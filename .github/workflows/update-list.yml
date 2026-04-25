@@ -1,0 +1,52 @@
+name: Refresh list.lst from runetfreedom
+
+on:
+  schedule:
+    # Daily at 04:30 UTC (07:30 MSK).
+    - cron: "30 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-list
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GEOVIEW_VERSION: "0.2.5"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache geoview binary
+        uses: actions/cache@v4
+        with:
+          path: bin/geoview
+          key: geoview-${{ env.GEOVIEW_VERSION }}-linux-amd64
+
+      - name: Cache geosite.dat (per-day)
+        uses: actions/cache@v4
+        with:
+          path: cache/geosite.dat
+          key: geosite-${{ github.run_id }}
+          restore-keys: |
+            geosite-
+
+      - name: Build list.lst
+        run: bash scripts/build.sh
+
+      - name: Commit if changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- list.lst; then
+            echo "list.lst unchanged — nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add list.lst
+          git commit -m "chore: refresh list.lst from runetfreedom $(date -u +%Y-%m-%d)"
+          git push

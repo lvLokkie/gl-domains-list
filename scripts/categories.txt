@@ -1,0 +1,93 @@
+# v2ray geosite categories to extract from runetfreedom geosite.dat.
+# One per line. Lines starting with # are ignored. Unknown categories are
+# silently skipped (geoview -strict=false), so it's safe to add aspirational
+# entries — log shows which ones matched.
+#
+# To discover available categories, run after geosite.dat is downloaded:
+#   ./bin/geoview -type geosite -input cache/geosite.dat -action lookup -value <some-domain>
+# or browse https://github.com/v2fly/domain-list-community/tree/master/data
+#
+# Curated set tuned to existing list.manual.lst use cases.
+
+# Google ecosystem
+google
+googleapis
+googlefcm
+googlevideo
+googleplay
+gmail
+gstatic
+youtube
+gemini
+
+# Meta
+meta
+facebook
+fbcdn
+instagram
+whatsapp
+oculus
+
+# AI
+openai
+anthropic
+
+# Social / messaging
+twitter
+threads
+discord
+telegram
+reddit
+linkedin
+snapchat
+tiktok
+pinterest
+
+# Streaming / entertainment
+netflix
+spotify
+twitch
+soundcloud
+deezer
+
+# Gaming
+ea
+epicgames
+steam
+playstation
+xbox
+
+# Adult
+pornhub
+xvideos
+
+# Productivity / collaboration
+notion
+figma
+slack
+zoom
+miro
+github
+gitlab
+atlassian
+medium
+patreon
+duckduckgo
+proton
+mozilla
+firefox
+
+# Hardware / OS / cloud
+microsoft
+adobe
+nvidia
+intel
+amd
+apple
+amazon
+
+# Misc
+booking
+airbnb
+shopify
+cloudflare
