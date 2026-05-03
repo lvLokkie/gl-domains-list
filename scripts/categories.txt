@@ -86,6 +86,10 @@ amd
 apple
 amazon
 
+# Smart home
+xiaomi
+aqara
+
 # Misc
 booking
 airbnb
