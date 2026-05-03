@@ -5,6 +5,12 @@ on:
     # Daily at 04:30 UTC (07:30 MSK).
     - cron: "30 4 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "list.manual.lst"
+      - "scripts/**"
+      - ".github/workflows/update-list.yml"
 
 permissions:
   contents: write
