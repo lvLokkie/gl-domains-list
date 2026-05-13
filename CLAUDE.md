@@ -42,3 +42,11 @@ The pipeline runs daily at 04:30 UTC via `.github/workflows/update-list.yml` (al
 - **Concatenated lines like `www.amd.comanthropic.com`** — symptom of the above; means concat lost a newline.
 - **Categories silently missing** — geoview's `-strict=false` means unknown category names just get logged as `(skipped)` rather than failing CI. If a category you expect isn't pulled, check it exists in [v2fly/domain-list-community/data](https://github.com/v2fly/domain-list-community/tree/master/data).
 - **Subdomain redundancy**: `googleapis.com` already wildcards `content-autofill.googleapis.com`, so adding subdomains to `list.manual.lst` when the parent is also present is wasted bytes — the collapse step removes them.
+
+## Documentation upkeep
+
+When changing product behavior, architecture, operations, or agent workflows, update the repository documentation in the same change:
+- `PRODUCT.md` for product intent, users, scope, non-goals, and roadmap.
+- `ARCHITECTURE.md` for current system design, data flow, runtime, config, and failure modes.
+- `docs/*` for runbooks, specs, decisions, and operational details.
+- This `CLAUDE.md` file for agent-facing commands, safety notes, and repo conventions.
