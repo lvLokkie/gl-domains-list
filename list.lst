@@ -1524,6 +1524,7 @@ cispaletter.com
 cispaletter.org
 cl1-cdn.origin-apple.com.akadns.net
 cl2-cdn.origin-apple.com.akadns.net
+cl2.apple.com.edgekey.net.globalredir.akadns.net
 cl3-cdn.origin-apple.com.akadns.net
 cl4-cdn.origin-apple.com.akadns.net
 cl5-cdn.origin-apple.com.akadns.net
@@ -2834,7 +2835,6 @@ ibookpartner.com
 ibooksauthor.com
 ichat.co.in
 icloud-apple.cn
-icloud-cdn.icloud.com.akadns.net
 icloud-content.com
 icloud-isupport.com
 icloud-sandbox.com
@@ -3949,6 +3949,7 @@ niosii.net
 nomulus.foo
 notebooklm.google
 notion-static.com
+notion-status.com
 notion.com
 notion.new
 notion.site
@@ -4122,7 +4123,6 @@ page.link
 pages.dev
 pagespeedmobilizer.com
 pageview.mobi
-pancake.cdn-apple.com.akadns.net
 panoramio.com
 paragon.com
 parse.com
